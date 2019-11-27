@@ -4,26 +4,26 @@ class Lexer(ABC):
 
     EOF: str = '<EOF>'
     EOF_TYPE: int = 1
-    inputString: str
+    inputString: str = ''
     currentPosition: int = 0
-    currentChar: str
+    currentChar: str = ''
 
     def __init__(self, inputString: str):
         self.inputString = inputString
-        currentChar = inputString[currentPosition]
+        self.currentChar = inputString[self.currentPosition]
 
     def consume(self):
-        currentPosition += 1
-        if currentPosition >= len(self.inputString):
-            currentChar = self.EOF
+        self.currentPosition += 1
+        if self.currentPosition >= len(self.inputString):
+            self.currentChar = self.EOF
         else:
-            currentChar = self.inputString[currentPosition]
+            self.currentChar = self.inputString[self.currentPosition]
 
     def match(self, char: str):
         if self.currentChar == char:
             self.consume()
         else:
-            raise Exception('Error: Expecting: {}. Found: {}.'.format(char, currentChar))
+            raise Exception('Error: Expecting: {}. Found: {}.'.format(char, self.currentChar))
 
     @abstractmethod
     def nextToken(self):
