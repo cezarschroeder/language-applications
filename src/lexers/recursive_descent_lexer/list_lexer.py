@@ -4,19 +4,19 @@ from src.common.token import Token
 class ListLexer(Lexer):
 
     # Token Type Definitions
-    NAME = 2
-    COMMA = 3
-    LBRACK = 4
-    RBRACK = 5
+    NAME: int = 2
+    COMMA: int = 3
+    LBRACK: int = 4
+    RBRACK: int = 5
 
     # Token Text (Name) Definitions
-    token_names = ['N/A', 'EOF', 'NAME', 'COMMA', 'LBRACK', 'RBRACK']
-    white_space_chars = set([' ', '\t', '\n', '\r'])
+    token_names: list = ['N/A', 'EOF', 'NAME', 'COMMA', 'LBRACK', 'RBRACK']
+    white_space_chars: list = set([' ', '\t', '\n', '\r'])
     
-    def __init__(self, input_string):
+    def __init__(self, input_string: str):
         super().__init__(input_string)
     
-    def get_token_name(self, token_type):
+    def get_token_name(self, token_type: int):
         return self.token_names[token_type]
     
     def next_token(self):
