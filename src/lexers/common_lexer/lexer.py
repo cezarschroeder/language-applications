@@ -2,13 +2,13 @@ from abc import ABC, abstractmethod
 
 class Lexer(ABC):
 
-    EOF = '<EOF>'
-    EOF_TYPE = 1
-    input_string = ''
-    current_position = 0
-    current_char = ''
+    EOF: str = '<EOF>'
+    EOF_TYPE: int = 1
+    input_string: str = ''
+    current_position: int = 0
+    current_char: str = ''
 
-    def __init__(self, input_string):
+    def __init__(self, input_string: str):
         self.input_string = input_string
         self.current_char = input_string[self.current_position]
 
@@ -19,7 +19,7 @@ class Lexer(ABC):
         else:
             self.current_char = self.input_string[self.current_position]
 
-    def match(self, char):
+    def match(self, char: str):
         if self.current_char == char:
             self.consume()
         else:
@@ -30,5 +30,5 @@ class Lexer(ABC):
         pass
 
     @abstractmethod
-    def get_token_name(self, token_type):
+    def get_token_name(self, token_type: int):
         pass
