@@ -8,9 +8,10 @@ class ListLexer(Lexer):
     COMMA: int = 3
     LBRACK: int = 4
     RBRACK: int = 5
+    EQUALS: int = 6
 
     # Token Text (Name) Definitions
-    token_names: list = ['N/A', 'EOF', 'NAME', 'COMMA', 'LBRACK', 'RBRACK']
+    token_names: list = ['N/A', 'EOF', 'NAME', 'COMMA', 'LBRACK', 'RBRACK', 'EQUALS']
     white_space_chars: list = set([' ', '\t', '\n', '\r'])
     
     def __init__(self, input_string: str):
@@ -32,10 +33,12 @@ class ListLexer(Lexer):
             elif self.current_char == ']':
                 self.consume()
                 return Token(self.RBRACK, self.get_token_name(self.RBRACK), ']')
+            elif self.current_char == '=':
+                self.consume()
+                return Token(self.EQUALS, self.get_token_name(self.EQUALS), '=')
             else:
                 if self.is_letter():
                     return self.process_name_token()
-                print(self.current_char)
                 raise Exception('Error: Invalid Character: {}'.format(self.current_char))
         return Token(self.EOF_TYPE, self.get_token_name(self.EOF_TYPE), '<EOF>')
     
