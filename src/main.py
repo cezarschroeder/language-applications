@@ -13,6 +13,7 @@ def main(argv):
     cli_parser.add_argument('--parser', nargs=1, type=str, help='calls LL(1) recursive-descent parser with the provided input')
     cli_parser.add_argument('--krdparser', nargs=1, type=str, help='calls LL(k) recursive-descent parser with the provided input')
     cli_parser.add_argument('--kvalue', type=int, default=2, help='value of k for the LL(k) recursive-descent parser')
+    cli_parser.add_argument('--btparser', nargs=1, type=str, help='calls backtracking parser with the provided input')
     parsed_args = cli_parser.parse_args()
     if parsed_args.lexer is not None:
         recursive_descent_lexer(parsed_args.lexer[0])
@@ -20,6 +21,10 @@ def main(argv):
         recursive_descent_parser(parsed_args.parser[0])
     elif parsed_args.krdparser is not None:
         k_recursive_descent_parser(parsed_args.krdparser[0], parsed_args.kvalue)
+    elif parsed_args.btparser is not None:
+        backtracking_parser(parsed_args.btparser[0])
+    else:
+        print('Error: too few arguments. Use -h or --help for further information on how to use this program.')
 
 def recursive_descent_lexer(input_string: str):
     list_lexer = ListLexer(input_string)
@@ -41,6 +46,9 @@ def k_recursive_descent_parser(input_string: str, k_value: int):
     krd_list_parser = KRDListParser(list_lexer, k_value)
     krd_list_parser.parse_list()
     print('Input was successfully parsed.')
+
+def backtracking_parser(input_string: str):
+    print('Backtracking parser was selected.')
 
 if __name__ == '__main__':
     main(sys.argv)
